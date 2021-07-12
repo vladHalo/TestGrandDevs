@@ -29,20 +29,15 @@ class SpinLogic : MonoBehaviour
     void Start()
     {
         child = transform.GetChild(0).transform;
-        startPos = new Vector3[child.childCount];
-
-        for (int i = 0; i < child.childCount; i++)
-            startPos[i] = child.GetChild(i).localPosition;
     }
 
     void FixedUpdate()
     {
         if (spinStatus)
         {
-            int count= child.childCount;
-            if (count == 15)
-                count = 10;
-
+            int count = child.childCount;
+            if(count==15)
+                count=10;
             for (int i = 0; i < count; i++)
                 child.GetChild(i).localPosition = Vector3.Lerp(startPos[i], new Vector3(startPos[i].x, startPos[i].y - 4000, 0), progress);
             progress += step;
@@ -76,6 +71,12 @@ class SpinLogic : MonoBehaviour
         transform.GetComponent<FillSlot>().Fill(MainApp.idSlot,5700);
         spinStatus = true;
         progress = 0;
+
+        child = transform.GetChild(0).transform;
+        startPos = new Vector3[child.childCount];
+
+        for (int i = 0; i < child.childCount; i++)
+            startPos[i] = child.GetChild(i).localPosition;
     }
 
     public void AddAmount()
